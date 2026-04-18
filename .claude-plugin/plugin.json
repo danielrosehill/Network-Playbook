@@ -1,7 +1,7 @@
 {
   "name": "lan-manager",
-  "description": "A specialized workspace for network system administration on local area networks, providing tools and scripts for LAN scanning, device discovery, device management, and network operations with context-aware topology information.",
-  "version": "1.0.0",
+  "description": "LAN sysadmin workspace with persistent memory — scan, discover, and manage devices and services on your local network, while building up a structured, greppable knowledge store of hosts, ports, OSes, and topology that grows over time.",
+  "version": "1.1.0",
   "author": {
     "name": "Daniel Rosehill",
     "email": "public@danielrosehill.com",
@@ -11,6 +11,9 @@
   "repository": "https://github.com/danielrosehill/lan-manager-plugin",
   "keywords": [
     "sysadmin",
-    "lan-manager"
+    "lan-manager",
+    "network",
+    "memory",
+    "knowledge-base"
   ]
 }

@@ -1,0 +1,7 @@
+# Per-install LAN memory — keep private in downstream clones.
+# Only the example/template files below are tracked.
+context/devices/*
+!context/devices/_example.md
+context/services/*
+!context/services/_example.md
+context/network.md

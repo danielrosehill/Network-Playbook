@@ -1,0 +1,16 @@
+# Network
+
+Copy this file to `network.md` (gitignored) and fill in your own values.
+
+- **Primary subnet**: 10.0.0.0/24
+- **Gateway / firewall**: (hostname, see `devices/<your-firewall>.md`)
+- **DNS**: (internal resolver, upstream)
+- **DHCP range**: 10.0.0.100 – 10.0.0.200
+- **VLANs**: (list any)
+- **WAN entry points**: (VPN endpoints, Cloudflare tunnels, port forwards, etc.)
+
+## Public hostnames
+
+| Hostname | Target | Via |
+|----------|--------|-----|
+| example.mydomain.com | 10.0.0.10:8096 | Cloudflare Tunnel |

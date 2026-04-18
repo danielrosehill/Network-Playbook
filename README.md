@@ -1,59 +1,68 @@
 ## LAN Manager Plugin
 
-This Claude Code plugin is part of my public marketplace.
+A Claude Code plugin that turns your LAN into a working memory: devices, services, OSes, ports, and topology, all captured in a structured, greppable knowledge store that grows as you and Claude discover things together.
 
-**To install the marketplace:**
+This repo is a **public template**. Install it, then either keep memory local (the `context/` directory is gitignored) or fork/clone it privately and commit your own inventory into that private copy.
+
+---
+
+## Install
 
 ```bash
 /plugin marketplace add https://github.com/danielrosehill/Claude-Code-Plugins
-```
-
-**Plugin Installation:**
-
-To install this plugin:
-
-```bash
 /plugin install lan-manager@danielrosehill
 ```
 
----
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Project-8A2BE2)](https://claude.ai/claude-code)
-[![Claude Code Projects Index](https://img.shields.io/badge/Index-Claude%20Code%20Projects-blue)](https://github.com/danielrosehill/Claude-Code-Repos-Index)
-[![Master Index](https://img.shields.io/badge/Index-Github%20Master-green)](https://github.com/danielrosehill/Github-Master-Index)
+## Quick start
 
-## Overview
+```bash
+# Seed the network overview
+cp context/network.md.example context/network.md
+# Edit context/network.md with your subnet / gateway / DNS
 
-A specialized repository serving as a launchpad for Claude Code to conduct network system administration operations on local area networks. This project provides tools and scripts for LAN management, device discovery, and network operations.
+# Record your first device
+/lan-remember the firewall is opnsense at 10.0.0.1, runs cloudflared
 
-## Purpose
+# Sweep the LAN and reconcile with memory
+/lan-scan
 
-This repository is designed to be a base/launchpad for Claude Code CLI to perform:
-- Network system administration tasks
-- LAN device discovery and scanning
-- Network resource management
-- General network operations on local networks
+# Look something up later
+/lan-recall jellyfin
 
-## Features
+# Re-check what's on disk against reality
+/lan-verify jellyfin
+```
 
-- **LAN Scanning**: Network discovery tools using ARP scans
-- **Device Management**: Track and manage devices on the local network
-- **Network Administration**: Perform various sysadmin operations
-- **Context-Aware**: Includes network topology information for intelligent operations
+## How memory is laid out
 
-## Repository Structure
+```
+context/
+  network.md              subnet, gateway, DNS, WAN entry points
+  devices/<slug>.md       one file per host (YAML frontmatter + notes)
+  services/<slug>.md      one file per service (YAML frontmatter + notes)
+```
 
-- `scan-lan.sh` - Main LAN scanning script for device discovery
-- `arp-scans/` - Directory for ARP scan outputs
-- `context/` - Network context and LAN guide information
-- `CLAUDE.md` - Instructions for Claude Code CLI integration
+Schema and field definitions are in `context/README.md`. Example templates are committed as `_example.md` in each directory — everything else in `context/devices/`, `context/services/`, and `context/network.md` is gitignored so a private install can't accidentally leak topology to the public template.
 
-## Usage
+## Commands
 
-This repository is optimized for use with Claude Code CLI. Simply navigate to the repository directory and launch Claude Code to begin network administration tasks.
+| Command | Purpose |
+|---------|---------|
+| `/lan-remember <desc>` | Record a new device or service observation into memory |
+| `/lan-recall <query>` | Look up hosts/services by slug, IP, port, or keyword |
+| `/lan-verify <slug>` | Probe the live network and reconcile memory with reality |
+| `/lan-scan [subnet]` | ARP/nmap sweep, matched against existing memory |
+
+## Design principles
+
+- **Public template, private data.** The template ships with empty inventory; your real data stays in the gitignored `context/` tree or in a private clone.
+- **Structured over narrative.** YAML frontmatter for machine-grep, prose for human notes.
+- **Trust live evidence.** When memory and reality disagree, update memory.
+- **Never store secrets.** Point to where they live (vault entry, key path); never inline them.
 
 ## Author
 
 **Daniel Rosehill**
 [danielrosehill.com](https://danielrosehill.com) | [public@danielrosehill.com](mailto:public@danielrosehill.com)
 
- 
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Project-8A2BE2)](https://claude.ai/claude-code)
