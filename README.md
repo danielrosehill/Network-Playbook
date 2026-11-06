@@ -1,68 +1,41 @@
-## LAN Manager Plugin
+# Network Playbook
 
-A Claude Code plugin that turns your LAN into a working memory: devices, services, OSes, ports, and topology, all captured in a structured, greppable knowledge store that grows as you and Claude discover things together.
+Agent skills that document a home network well enough to rebuild it after a move. The test of success: you can unplug everything, carry it to a new address, and put it back together from the printout.
 
-This repo is a **public template**. Install it, then either keep memory local (the `context/` directory is gitignored) or fork/clone it privately and commit your own inventory into that private copy.
+One definition, `network.json`, produces two outputs:
 
----
+- **PDF playbook** (Typst), to print and follow: move-out checks, rebuild steps, topology, DHCP range and reservations, port maps of each device, cable schedule, fallback plans, remote access and DNS.
+- **Machine JSON**, for an agent helping with the rebuild: the same facts plus ordered steps, each with a check.
+
+## Skills
+
+| Skill | Job |
+|---|---|
+| `setup-site` | Create the workspace for a location |
+| `scan-lan` | ARP and mDNS sweep, compared with the definition |
+| `probe-infrastructure` | Read-only probe of router, DHCP, servers, Tailscale, Cloudflare, public IP, DNS |
+| `document-hardware` | Photos and notes into port maps, cable schedule and layout |
+| `build-playbook` | Render the dated PDF and JSON, save to Google Drive |
+| `update-playbook` | Find drift, record it, reissue |
+| `rebuild-network` | Walk through reassembly at a new location |
+
+## Methods
+
+The format borrows from people who move working systems for a living: PACE fallback plans and jump kits from military signals, TIA-606 identifiers, input-list-style cable schedules and stage plots from touring, Read-Do checklists from aviation, NetBox's data model and NIST's reconstitution step. See `references/documentation-standards.md`. These are adaptations, not claims of compliance.
+
+## Data
+
+Your data stays outside the plugin, by default in `~/.claude-user-data/network-playbook/`. Set `NETWORK_PLAYBOOK_HOME` to move it. Secrets are never stored: `*_ref` fields say where each one is kept, and the validator rejects anything that looks like a credential.
+
+## Requirements
+
+Python 3 and [Typst](https://typst.app) 0.14 or later. `arp-scan` (needs root) and `avahi-browse` are recommended for scanning.
 
 ## Install
 
 ```bash
-/plugin marketplace add https://github.com/danielrosehill/Claude-Code-Plugins
-/plugin install lan-manager@danielrosehill
+/plugin marketplace add danielrosehill/Claude-Code-Plugins
+/plugin install network-playbook@danielrosehill
 ```
 
-## Quick start
-
-```bash
-# Seed the network overview
-cp context/network.md.example context/network.md
-# Edit context/network.md with your subnet / gateway / DNS
-
-# Record your first device
-/lan-remember the firewall is opnsense at 10.0.0.1, runs cloudflared
-
-# Sweep the LAN and reconcile with memory
-/lan-scan
-
-# Look something up later
-/lan-recall jellyfin
-
-# Re-check what's on disk against reality
-/lan-verify jellyfin
-```
-
-## How memory is laid out
-
-```
-context/
-  network.md              subnet, gateway, DNS, WAN entry points
-  devices/<slug>.md       one file per host (YAML frontmatter + notes)
-  services/<slug>.md      one file per service (YAML frontmatter + notes)
-```
-
-Schema and field definitions are in `context/README.md`. Example templates are committed as `_example.md` in each directory — everything else in `context/devices/`, `context/services/`, and `context/network.md` is gitignored so a private install can't accidentally leak topology to the public template.
-
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/lan-remember <desc>` | Record a new device or service observation into memory |
-| `/lan-recall <query>` | Look up hosts/services by slug, IP, port, or keyword |
-| `/lan-verify <slug>` | Probe the live network and reconcile memory with reality |
-| `/lan-scan [subnet]` | ARP/nmap sweep, matched against existing memory |
-
-## Design principles
-
-- **Public template, private data.** The template ships with empty inventory; your real data stays in the gitignored `context/` tree or in a private clone.
-- **Structured over narrative.** YAML frontmatter for machine-grep, prose for human notes.
-- **Trust live evidence.** When memory and reality disagree, update memory.
-- **Never store secrets.** Point to where they live (vault entry, key path); never inline them.
-
-## Author
-
-**Daniel Rosehill**
-[danielrosehill.com](https://danielrosehill.com) | [public@danielrosehill.com](mailto:public@danielrosehill.com)
-
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Project-8A2BE2)](https://claude.ai/claude-code)
+`examples/example-site/network.json` is a fictional, complete definition. Formerly `lan-manager-plugin`.

@@ -1,19 +1,12 @@
 {
-  "name": "lan-manager",
-  "description": "LAN sysadmin workspace with persistent memory — scan, discover, and manage devices and services on your local network, while building up a structured, greppable knowledge store of hosts, ports, OSes, and topology that grows over time.",
-  "version": "1.1.0",
+  "name": "network-playbook",
+  "version": "0.1.0",
+  "description": "Document a home network so it can be rebuilt after a move: scan and probe it, then keep a printable PDF playbook and an agent-readable JSON definition.",
   "author": {
     "name": "Daniel Rosehill",
-    "email": "public@danielrosehill.com",
-    "url": "https://danielrosehill.com"
+    "url": "https://github.com/danielrosehill"
   },
+  "repository": "https://github.com/danielrosehill/Network-Playbook",
   "license": "MIT",
-  "repository": "https://github.com/danielrosehill/lan-manager-plugin",
-  "keywords": [
-    "sysadmin",
-    "lan-manager",
-    "network",
-    "memory",
-    "knowledge-base"
-  ]
+  "keywords": ["network-documentation", "home-network", "homelab", "arp-scan", "typst", "port-map", "cable-schedule", "disaster-recovery", "tailscale", "cloudflare-tunnel"]
 }

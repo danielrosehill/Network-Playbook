@@ -1,0 +1,707 @@
+{
+  "schema_version": 1,
+  "site": {
+    "name": "Example Flat",
+    "slug": "example-site",
+    "address": "12 Harbour Street (fictional)",
+    "summary": "A fictional small home network, used to test the plugin and show the format."
+  },
+  "racks": [
+    {
+      "id": "cab1",
+      "name": "Hall cabinet",
+      "location": "Hallway, by the fibre entry point"
+    }
+  ],
+  "devices": [
+    {
+      "id": "ont",
+      "name": "Fibre ONT",
+      "role": "ont",
+      "make": "ExampleCo",
+      "model": "ONT-1",
+      "rack": "cab1",
+      "source": "user",
+      "last_verified": "2026-11-06",
+      "interfaces": [
+        {
+          "id": "lan1",
+          "label": "LAN 1",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 1,
+          "use": "wan"
+        }
+      ]
+    },
+    {
+      "id": "fw",
+      "name": "Firewall",
+      "role": "firewall",
+      "make": "Generic",
+      "model": "4-port mini PC",
+      "rack": "cab1",
+      "os": "OPNsense",
+      "admin": {
+        "url": "https://192.168.50.1",
+        "credential_ref": "password manager: Firewall admin"
+      },
+      "source": "probe",
+      "last_verified": "2026-11-06",
+      "notes": "Ports are not in OS order: check the labels.",
+      "interfaces": [
+        {
+          "id": "wan",
+          "label": "WAN",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 1,
+          "use": "wan",
+          "os_name": "igc0"
+        },
+        {
+          "id": "lan",
+          "label": "LAN 1",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 2,
+          "use": "lan",
+          "os_name": "igc1",
+          "mac": "02:00:00:00:00:01",
+          "ip_addresses": [
+            {
+              "address": "192.168.50.1",
+              "prefix": "lan",
+              "assignment": "static",
+              "dns_name": "fw.home.example"
+            }
+          ]
+        },
+        {
+          "id": "opt1",
+          "label": "LAN 2",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 3,
+          "use": "spare",
+          "os_name": "igc2"
+        },
+        {
+          "id": "opt2",
+          "label": "LAN 3",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 4,
+          "use": "spare",
+          "os_name": "igc3"
+        }
+      ]
+    },
+    {
+      "id": "sw1",
+      "name": "Cabinet switch",
+      "role": "switch",
+      "make": "Generic",
+      "model": "8-port managed",
+      "rack": "cab1",
+      "source": "user",
+      "last_verified": "2026-11-06",
+      "interfaces": [
+        {
+          "id": "p1",
+          "label": "1",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 1,
+          "use": "uplink",
+          "mac": "02:00:00:00:00:02",
+          "ip_addresses": [
+            {
+              "address": "192.168.50.2",
+              "prefix": "lan",
+              "assignment": "reservation",
+              "dns_name": "sw1.home.example"
+            }
+          ]
+        },
+        {
+          "id": "p2",
+          "label": "2",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 2,
+          "use": "lan"
+        },
+        {
+          "id": "p3",
+          "label": "3",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 3,
+          "use": "lan"
+        },
+        {
+          "id": "p4",
+          "label": "4",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 4,
+          "use": "lan"
+        },
+        {
+          "id": "p5",
+          "label": "5",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 5,
+          "use": "spare"
+        },
+        {
+          "id": "p6",
+          "label": "6",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 6,
+          "use": "spare"
+        },
+        {
+          "id": "p7",
+          "label": "7",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 7,
+          "use": "spare"
+        },
+        {
+          "id": "p8",
+          "label": "8",
+          "type": "rj45",
+          "face": "front",
+          "row": 1,
+          "position": 8,
+          "use": "spare"
+        }
+      ]
+    },
+    {
+      "id": "ap1",
+      "name": "Hall AP",
+      "role": "ap",
+      "make": "Generic",
+      "model": "Wi-Fi 6 AP",
+      "source": "user",
+      "last_verified": "2026-11-06",
+      "interfaces": [
+        {
+          "id": "eth0",
+          "label": "PoE",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 1,
+          "use": "uplink",
+          "mac": "02:00:00:00:00:03",
+          "ip_addresses": [
+            {
+              "address": "192.168.50.3",
+              "prefix": "lan",
+              "assignment": "reservation",
+              "dns_name": "ap1.home.example"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "srv",
+      "name": "Home server",
+      "role": "server",
+      "make": "Generic",
+      "model": "Mini tower",
+      "os": "Ubuntu Server",
+      "source": "probe",
+      "last_verified": "2026-11-06",
+      "interfaces": [
+        {
+          "id": "eth0",
+          "label": "ETH",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 1,
+          "use": "lan",
+          "os_name": "enp1s0",
+          "mac": "02:00:00:00:00:04",
+          "ip_addresses": [
+            {
+              "address": "192.168.50.10",
+              "prefix": "lan",
+              "assignment": "reservation",
+              "dns_name": "srv.home.example"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nas",
+      "name": "NAS",
+      "role": "nas",
+      "make": "Generic",
+      "model": "2-bay",
+      "source": "scan",
+      "last_verified": "2026-11-06",
+      "interfaces": [
+        {
+          "id": "lan1",
+          "label": "LAN 1",
+          "type": "rj45",
+          "face": "rear",
+          "row": 1,
+          "position": 1,
+          "use": "lan",
+          "mac": "02:00:00:00:00:05",
+          "ip_addresses": [
+            {
+              "address": "192.168.50.20",
+              "prefix": "lan",
+              "assignment": "reservation",
+              "dns_name": "nas.home.example"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vm1",
+      "name": "Media VM",
+      "role": "vm",
+      "hosted_on": "srv",
+      "os": "Ubuntu Server",
+      "source": "probe",
+      "last_verified": "2026-11-06",
+      "interfaces": [
+        {
+          "id": "eth0",
+          "type": "virtual",
+          "mac": "02:00:00:00:00:06",
+          "ip_addresses": [
+            {
+              "address": "192.168.50.11",
+              "prefix": "lan",
+              "assignment": "reservation",
+              "dns_name": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cables": [
+    {
+      "id": "C001",
+      "a": {
+        "device": "ont",
+        "interface": "lan1"
+      },
+      "b": {
+        "device": "fw",
+        "interface": "wan"
+      },
+      "type": "Cat6",
+      "colour": "red",
+      "length": "0.5 m"
+    },
+    {
+      "id": "C002",
+      "a": {
+        "device": "fw",
+        "interface": "lan"
+      },
+      "b": {
+        "device": "sw1",
+        "interface": "p1"
+      },
+      "type": "Cat6",
+      "colour": "blue",
+      "length": "0.5 m"
+    },
+    {
+      "id": "C003",
+      "a": {
+        "device": "sw1",
+        "interface": "p2"
+      },
+      "b": {
+        "device": "ap1",
+        "interface": "eth0"
+      },
+      "type": "Cat6",
+      "colour": "yellow",
+      "length": "5 m"
+    },
+    {
+      "id": "C004",
+      "a": {
+        "device": "sw1",
+        "interface": "p3"
+      },
+      "b": {
+        "device": "srv",
+        "interface": "eth0"
+      },
+      "type": "Cat6",
+      "colour": "green",
+      "length": "1 m"
+    },
+    {
+      "id": "C005",
+      "a": {
+        "device": "sw1",
+        "interface": "p4"
+      },
+      "b": {
+        "device": "nas",
+        "interface": "lan1"
+      },
+      "type": "Cat6",
+      "colour": "green",
+      "length": "1 m"
+    }
+  ],
+  "prefixes": [
+    {
+      "id": "lan",
+      "name": "LAN",
+      "cidr": "192.168.50.0/24",
+      "gateway": "192.168.50.1",
+      "dns": [
+        "192.168.50.1"
+      ],
+      "domain": "home.example",
+      "ip_ranges": [
+        {
+          "kind": "dhcp",
+          "start": "192.168.50.100",
+          "end": "192.168.50.199",
+          "server": "fw",
+          "lease": "24h"
+        }
+      ]
+    }
+  ],
+  "wireless": [
+    {
+      "ssid": "ExampleNet",
+      "bands": "2.4 / 5 GHz",
+      "prefix": "lan",
+      "password_ref": "password manager: Home Wi-Fi",
+      "aps": [
+        "ap1"
+      ]
+    }
+  ],
+  "internet": {
+    "provider": {
+      "name": "Example ISP",
+      "support": "+00 000 0000",
+      "account_ref": "password manager: ISP account"
+    },
+    "circuits": [
+      {
+        "id": "wan1",
+        "name": "WAN 1",
+        "type": "fibre",
+        "handoff": "ONT Ethernet",
+        "device": "fw",
+        "interface": "wan",
+        "addressing": "PPPoE",
+        "credential_ref": "password manager: PPPoE login"
+      }
+    ],
+    "public_ip": {
+      "address": "203.0.113.10",
+      "kind": "dynamic",
+      "observed": "2026-11-06"
+    }
+  },
+  "pace": {
+    "internet": {
+      "primary": {
+        "method": "Fibre, WAN 1",
+        "switch_when": "",
+        "last_tested": "2026-11-06"
+      },
+      "alternate": {
+        "method": "LTE router on firewall LAN 2",
+        "switch_when": "WAN 1 down over 5 minutes"
+      },
+      "contingency": {
+        "method": "Phone hotspot to a laptop",
+        "switch_when": "LTE router fails"
+      },
+      "emergency": {
+        "method": "Neighbour or cafe Wi-Fi with a printed copy of this document",
+        "switch_when": "No mobile signal"
+      }
+    },
+    "admin_access": {
+      "primary": {
+        "method": "Tailscale to the firewall"
+      },
+      "alternate": {
+        "method": "Cloudflare tunnel to the server",
+        "switch_when": "Tailscale unreachable"
+      },
+      "contingency": {
+        "method": "LAN port on the switch, static 192.168.50.5",
+        "switch_when": "No remote route"
+      },
+      "emergency": {
+        "method": "Monitor and keyboard on the firewall",
+        "switch_when": "LAN unreachable"
+      }
+    }
+  },
+  "services": [
+    {
+      "id": "media",
+      "name": "Media server",
+      "host": "vm1",
+      "port": 8096,
+      "url": "https://media.example.net"
+    }
+  ],
+  "remote_access": {
+    "tailscale": {
+      "tailnet": "example.ts.net",
+      "nodes": [
+        {
+          "name": "fw",
+          "ip": "100.64.0.1",
+          "device": "fw",
+          "subnet_routes": [
+            "192.168.50.0/24"
+          ],
+          "exit_node": true
+        }
+      ]
+    },
+    "cloudflare_tunnels": [
+      {
+        "name": "home",
+        "id": "00000000-0000-0000-0000-000000000000",
+        "connector": "srv",
+        "routes": [
+          {
+            "hostname": "media.example.net",
+            "service": "http://192.168.50.11:8096"
+          }
+        ]
+      }
+    ],
+    "port_forwards": [],
+    "ddns": [
+      {
+        "hostname": "home.example.net",
+        "provider": "Cloudflare",
+        "updater": "Firewall"
+      }
+    ]
+  },
+  "dns": {
+    "resolver": {
+      "device": "fw",
+      "upstreams": [
+        "1.1.1.1",
+        "9.9.9.9"
+      ]
+    },
+    "overrides": [
+      {
+        "host": "nas.home.example",
+        "ip": "192.168.50.20"
+      }
+    ],
+    "zones": [
+      {
+        "name": "example.net",
+        "registrar": "Example Registrar",
+        "nameservers": [
+          "a.ns.example",
+          "b.ns.example"
+        ],
+        "records": [
+          {
+            "type": "A",
+            "name": "home",
+            "value": "203.0.113.10",
+            "depends_on_public_ip": true
+          },
+          {
+            "type": "CNAME",
+            "name": "media",
+            "value": "tunnel target"
+          }
+        ]
+      }
+    ]
+  },
+  "photos": [],
+  "plot": [
+    {
+      "item": "ONT, firewall, switch",
+      "location": "Hall cabinet, top shelf, ONT on the left"
+    },
+    {
+      "item": "Hall AP",
+      "location": "Ceiling, centre of the hallway"
+    },
+    {
+      "item": "Server and NAS",
+      "location": "Cabinet floor"
+    }
+  ],
+  "rebuild": {
+    "jump_kit": [
+      "fw",
+      "ap1",
+      "sw1"
+    ],
+    "move_out": [
+      "Export the firewall configuration and copy it off the box",
+      "Confirm a printed copy of this document is packed",
+      "Photograph the cabinet before unplugging anything",
+      "Check each cable label is on both ends",
+      "Book the provider's move date"
+    ],
+    "phases": [
+      {
+        "id": "wan",
+        "title": "Phase 1: Internet",
+        "pause_point": "Do not continue until the firewall has a public address.",
+        "steps": [
+          {
+            "id": "1.1",
+            "action": "Connect ONT LAN 1 to firewall WAN with cable C001.",
+            "killer": true,
+            "verify": {
+              "check": "Link light on both ends",
+              "expected": "solid"
+            }
+          },
+          {
+            "id": "1.2",
+            "action": "Power the firewall and restore the exported configuration.",
+            "depends_on": [
+              "1.1"
+            ],
+            "verify": {
+              "check": "Open the admin page",
+              "expected": "login page loads"
+            }
+          },
+          {
+            "id": "1.3",
+            "action": "Enter the new provider credentials on WAN.",
+            "depends_on": [
+              "1.2"
+            ],
+            "verify": {
+              "command": "ping -c3 1.1.1.1",
+              "check": "Ping from the firewall",
+              "expected": "0% loss"
+            }
+          }
+        ]
+      },
+      {
+        "id": "lan",
+        "title": "Phase 2: LAN and Wi-Fi",
+        "pause_point": "Do not connect servers until a client gets an address and reaches the internet.",
+        "steps": [
+          {
+            "id": "2.1",
+            "action": "Connect firewall LAN 1 to switch port 1 with C002.",
+            "depends_on": [
+              "1.3"
+            ],
+            "verify": {
+              "check": "Link light",
+              "expected": "solid"
+            }
+          },
+          {
+            "id": "2.2",
+            "action": "Connect the AP to switch port 2 with C003.",
+            "depends_on": [
+              "2.1"
+            ],
+            "verify": {
+              "check": "SSID visible",
+              "expected": "ExampleNet"
+            }
+          }
+        ]
+      },
+      {
+        "id": "srv",
+        "title": "Phase 3: Servers and remote access",
+        "pause_point": "Stop and run reconstitution.",
+        "steps": [
+          {
+            "id": "3.1",
+            "action": "Connect the server and NAS using C004 and C005.",
+            "depends_on": [
+              "2.1"
+            ],
+            "verify": {
+              "command": "ping -c3 192.168.50.10",
+              "check": "Server answers",
+              "expected": "0% loss"
+            }
+          },
+          {
+            "id": "3.2",
+            "action": "Update DNS records tied to the public IP.",
+            "killer": true,
+            "depends_on": [
+              "3.1"
+            ],
+            "verify": {
+              "command": "dig +short home.example.net",
+              "check": "Record matches the new public IP",
+              "expected": "new address"
+            }
+          }
+        ]
+      }
+    ],
+    "reconstitution": [
+      "Run a fresh scan: no device missing, no reservation wrong",
+      "Tailscale reaches the firewall from outside the network",
+      "Every Cloudflare tunnel hostname answers from a phone off Wi-Fi",
+      "Every PACE alternate tested once by disabling the primary",
+      "New public IP, date and any changes written back and a new playbook issued"
+    ]
+  },
+  "open_questions": [],
+  "changelog": [
+    {
+      "date": "2026-11-06",
+      "summary": "First issue."
+    }
+  ]
+}
